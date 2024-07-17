@@ -32,19 +32,19 @@ Application will be available on the choosen port --> localhost:choosen_port
     - For adding items into registry
 
 ### /remove/<item>
-    - For removing items from registry
+- For removing items from registry
 
 ### /check/<item>
-    - For checking if an item is in the registry
+- For checking if an item is in the registry
 
 ### /invert
-    - For inverting the registry
+- For inverting the registry
 
 ### /diff
-    - For getting the difference between a provided set and our current set
+- For getting the difference between a provided set and our current set
 
 ### /apidocs
-    - For more detailed endpoint documentation (swagger)
+- For more detailed endpoint documentation (swagger)
 
 ## Used libraries
 
