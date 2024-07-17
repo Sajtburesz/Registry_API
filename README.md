@@ -21,8 +21,7 @@ After successfully building the image spin up the container.
 docker run -p <desired_localhost_port>:8000 <the_built_images_tag>
 ```
 
-Application will be available on the choosen port --> localhost:choosen_port
-
+Application will be available on the choosen port --> localhost:<choosen_port>
 <br>
 
 
