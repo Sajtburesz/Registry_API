@@ -50,7 +50,6 @@ Application will be available on the choosen port --> localhost:<choosen_port>
 Couple Unit Tests were created. To run them set TEST environment variable true when starting docker container.
 ```
 docker run -e TEST=true <the_built_images_tag>
-
 ```
 
 ## Used libraries
@@ -60,4 +59,4 @@ docker run -e TEST=true <the_built_images_tag>
 
 --> Used libraries can be found in requirements.txt
 
-### Node.js solution was also created and is available on the Node_registry
+### Node.js solution was also created and is available on the Node_registry branch.
