@@ -87,7 +87,7 @@ def check_item_in_registry(item: str):
             description: Item is in registry.
     """
     if not isinstance(item, str) or not item.isalnum():
-        return jsonify({"message": "Item contains non alphanumeric characters or item is not a string."}), 422
+        return jsonify({"error": "Item contains non alphanumeric characters or item is not a string."}), 422
 
     if item not in registry and not inverted:
         return jsonify({"error": f"{item} is not in the registry."}), 400
