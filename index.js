@@ -1,5 +1,30 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+
 const app = express();
+
+
+// Some swagger config based on a tutorial I found
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Registry API',
+            version: '1.0.0',
+            description: 'API for managing a registry set'
+        },
+        servers: [
+            {
+                url: 'http://localhost:3000'
+            }
+        ]
+    },
+    apis: ['./index.js']
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Start application
 app.listen(3000, () => {
@@ -43,7 +68,26 @@ class Registry {
 
 const registry = new Registry();
 
-
+/**
+ * @swagger
+ * /add:
+ *   post:
+ *     summary: Add an item to the registry
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               item:
+ *                 type: string
+ *     responses:
+ *       204:
+ *         description: Item added successfully
+ *       422:
+ *         description: Invalid item format
+ */
 app.post("/add", (req, res, next) => {
     const { item }  = req.body;
 
@@ -56,6 +100,23 @@ app.post("/add", (req, res, next) => {
 
 });
 
+/**
+ * @swagger
+ * /remove/{item}:
+ *   delete:
+ *     summary: Remove an item from the registry
+ *     parameters:
+ *       - in: path
+ *         name: item
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Item removed successfully
+ *       422:
+ *         description: Invalid item format
+ */
 app.delete("/remove/:item", (req, res, next) => {
     const item = req.params.item;
 
@@ -68,6 +129,15 @@ app.delete("/remove/:item", (req, res, next) => {
 
 });
 
+/**
+ * @swagger
+ * /invert:
+ *   post:
+ *     summary: Invert the registry
+ *     responses:
+ *       200:
+ *         description: Registry inverted
+ */
 app.post("/invert", (req, res, next) => {
 
     registry.invertRegistry();
@@ -76,6 +146,25 @@ app.post("/invert", (req, res, next) => {
 
 });
 
+/**
+ * @swagger
+ * /check/{item}:
+ *   get:
+ *     summary: Check if an item is in the registry
+ *     parameters:
+ *       - in: path
+ *         name: item
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Item is in the registry
+ *       400:
+ *         description: Item is not in the registry
+ *       422:
+ *         description: Invalid item format
+ */
 app.get("/check/:item", (req, res, next) => {
     const item = req.params.item;
 
@@ -90,6 +179,28 @@ app.get("/check/:item", (req, res, next) => {
     }
 });
 
+/**
+ * @swagger
+ * /diff:
+ *   post:
+ *     summary: Get the difference between the registry and a provided set
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: Diff was successful
+ *       422:
+ *         description: Invalid items format
+ */
 app.post("/diff", (req, res, next) => {
     const { items }  = req.body;
 

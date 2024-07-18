@@ -1,13 +1,13 @@
-FROM python:3.11-slim
+FROM node:14-slim
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY requirements.txt .
+COPY package*.json ./
 
-RUN pip3 install -r requirements.txt
+RUN npm install
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 3000
 
 ENTRYPOINT ["./entrypoint.sh"]

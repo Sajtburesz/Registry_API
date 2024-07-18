@@ -1,6 +1,6 @@
 # Registry_API
-Registry backend created using Python and flask.
-For api documentation swagger was used.
+Registry backend created using Nodejs and Express. (My first node.js app)
+For api documentation swagger was used.(Mostly copied from tutorials and template for endpoint docs was ai generated)
 
 ## Prerequisites
 Only prerequisite is Docker installation.
@@ -18,7 +18,7 @@ docker build -t <prefered_tag> .
 After successfully building the image spin up the container.
 
 ```
-docker run -p <desired_localhost_port>:8000 <the_built_images_tag>
+docker run -p <desired_localhost_port>:3000 <the_built_images_tag>
 ```
 
 Application will be available on the choosen port --> localhost:<choosen_port>
@@ -28,7 +28,7 @@ Application will be available on the choosen port --> localhost:<choosen_port>
 ## Endpoints
 
 ### /add
-    - For adding items into registry
+- For adding items into registry
 
 ### /remove/<item>
 - For removing items from registry
@@ -42,12 +42,6 @@ Application will be available on the choosen port --> localhost:<choosen_port>
 ### /diff
 - For getting the difference between a provided set and our current set
 
-### /apidocs
+### /api-docs
 - For more detailed endpoint documentation (swagger)
-
-## Used libraries
-
-- For the API basic Flask application was created using only CRUD methods.
-- Application is run by gunicorn wsgi application server
-
---> Used libraries can be found in requirements.txt
+- Can be opened in browser!
