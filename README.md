@@ -45,9 +45,19 @@ Application will be available on the choosen port --> localhost:<choosen_port>
 ### /apidocs
 - For more detailed endpoint documentation (swagger)
 
+## Testing
+
+Couple Unit Tests were created. To run them set TEST environment variable true when starting docker container.
+```
+docker run -e TEST=true <the_built_images_tag>
+
+```
+
 ## Used libraries
 
 - For the API basic Flask application was created using only CRUD methods.
 - Application is run by gunicorn wsgi application server
 
 --> Used libraries can be found in requirements.txt
+
+### Node.js solution was also created and is available on the Node_registry
