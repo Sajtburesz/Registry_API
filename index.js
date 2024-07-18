@@ -30,8 +30,8 @@ class Registry {
         return this.inverted;
     }
 
-    setInverted(bool){
-        this.inverted = bool;
+    invertRegistry(){
+        this.inverted = !this.inverted;
     }
 }
 
@@ -55,16 +55,23 @@ app.post("/add", (req, res, next) => {
 
 app.delete("/remove/:item", (req, res, next) => {
     const item = req.params.item;
+
     if (typeof item === "string" && isAlphanumeric(item)){
         registry.removeFromRegistry(item);
         res.sendStatus(204).end();
     } else {
         res.status(422).send('Item contains non alphanumeric characters or item is not a string.');
     }
+
 });
 
+app.post("/invert", (req, res, next) => {
 
+    registry.invertRegistry();
+    
+    res.status(200).send('Registry is inverted: ' + registry.getInverted() + '.');
 
+});
 
 
 
