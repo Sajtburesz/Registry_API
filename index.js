@@ -92,6 +92,24 @@ app.get("/check/:item", (req, res, next) => {
 
 app.post("/diff", (req, res, next) => {
     const { items }  = req.body;
+
+    if (Array.isArray(items) || items instanceof Set) {
+        for (let i of items) {
+            if (typeof i === "string" && isAlphanumeric(i)){
+                continue;
+            }else {
+                res.status(422).send(i + ' in provided set is not a string or is not alphanumerical.');
+            }
+        }
+    } else{
+        res.status(422).send('Items is not a list or a set.');
+    }
+
+    const diff_registry = new Set(items);
+    const diff_items = Array.from(diff_registry).filter(item => !registry.getRegistry().has(item)); 
+    res.status(200).json({diff: diff_items});
+
+
 });
 
 
