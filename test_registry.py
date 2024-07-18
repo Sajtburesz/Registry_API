@@ -34,7 +34,6 @@ class RegistryAPITestCase(unittest.TestCase):
     def test_check_not_in_registry_item(self):
         self.app.post('/add', json={'item': 'red'})
         self.app.post('/invert')
-        print(f"inverted {inverted}")
         response = self.app.get('/check/blue')
         self.assertEqual(response.status_code, 400)
         self.assertIn('blue is not in the registry.', response.get_json()['error'])
@@ -49,7 +48,6 @@ class RegistryAPITestCase(unittest.TestCase):
     def test_check_not_in_registry_item_inverted(self):
         r = self.app.post('/invert')
         response = self.app.get('/check/blue')
-        print("Test Check Not In Registry Item Inverted:", response.status_code, response.get_json())
         self.assertEqual(response.status_code, 200)
         self.assertIn('blue is in the registry.', response.get_json()['message'])
 
