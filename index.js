@@ -43,6 +43,32 @@ const registry = new Registry();
 
 app.post("/add", (req, res, next) => {
     const { item }  = req.body;
-    console.log(item);
-    console.log(typeof item === "string")
+
+    if (typeof item === "string" && isAlphanumeric(item)){
+        registry.addToRegistry(item);
+        res.sendStatus(204).end();
+    } else {
+        res.status(422).send('Item contains non alphanumeric characters or item is not a string.');
+    }
+
 });
+
+app.delete("/remove/:item", (req, res, next) => {
+    const item = req.params.item;
+    if (typeof item === "string" && isAlphanumeric(item)){
+        registry.removeFromRegistry(item);
+        res.sendStatus(204).end();
+    } else {
+        res.status(422).send('Item contains non alphanumeric characters or item is not a string.');
+    }
+});
+
+
+
+
+
+
+// Function for check if string is alphanumeric using regex.
+function isAlphanumeric(str) {
+    return /^[a-zA-Z0-9]+$/.test(str);
+}
