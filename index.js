@@ -44,4 +44,5 @@ const registry = new Registry();
 app.post("/add", (req, res, next) => {
     const { item }  = req.body;
     console.log(item);
+    console.log(typeof item === "string")
 });
