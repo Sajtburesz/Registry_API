@@ -28,7 +28,7 @@ Application will be available on the choosen port --> localhost:<choosen_port>
 ## Endpoints
 
 ### /add
-    - For adding items into registry
+- For adding items into registry
 
 ### /remove/<item>
 - For removing items from registry
