@@ -51,7 +51,7 @@ app.post("/add", (req, res, next) => {
         registry.addToRegistry(item);
         res.sendStatus(204).end();
     } else {
-        res.status(422).send('Item contains non alphanumeric characters or item is not a string.');
+        res.status(422).json({ error: 'Item contains non alphanumeric characters or item is not a string.' });
     }
 
 });
@@ -63,7 +63,7 @@ app.delete("/remove/:item", (req, res, next) => {
         registry.removeFromRegistry(item);
         res.sendStatus(204).end();
     } else {
-        res.status(422).send('Item contains non alphanumeric characters or item is not a string.');
+        res.status(422).json({ error: 'Item contains non alphanumeric characters or item is not a string.' });
     }
 
 });
@@ -72,7 +72,7 @@ app.post("/invert", (req, res, next) => {
 
     registry.invertRegistry();
     
-    res.status(200).send('Registry is inverted: ' + registry.getInverted() + '.');
+    res.status(200).json({ message: `Registry is inverted: ${registry.getInverted()}.` });
 
 });
 
@@ -81,12 +81,12 @@ app.get("/check/:item", (req, res, next) => {
 
     if (typeof item === "string" && isAlphanumeric(item)){
         if ( registry.checkItem(item) == 1){
-            res.status(200).send( item + ' is in the registry.');
+            res.status(200).json({ message: `${item} is in the registry.` });
         } else {
-            res.status(400).send( item + ' is not in the registry.');
+            res.status(400).json({ message: `${item} is not in the registry.` });
         }
     } else {
-        res.status(422).send('Item contains non alphanumeric characters or item is not a string.');
+        res.status(422).json({ error: 'Item contains non alphanumeric characters or item is not a string.' });
     }
 });
 
@@ -98,11 +98,11 @@ app.post("/diff", (req, res, next) => {
             if (typeof i === "string" && isAlphanumeric(i)){
                 continue;
             }else {
-                res.status(422).send(i + ' in provided set is not a string or is not alphanumerical.');
+                return res.status(422).json({ error: `${i} in provided set is not a string or is not alphanumerical.` });
             }
         }
     } else{
-        res.status(422).send('Items is not a list or a set.');
+        return res.status(422).json({ error: 'Items is not a list or a set.' });
     }
 
     const diff_registry = new Set(items);
